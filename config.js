@@ -2,8 +2,8 @@ const config = {
     db: {
         host: "localhost",
         user: "root",
-        password: "",
-        database: "clientserver"
+        password: "1234",
+        database: "graduation"
     },
     listPerPage: 10
 }

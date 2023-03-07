@@ -4,7 +4,7 @@ var router = express.Router();
 const languages = require('../services/languages');
 
 /* GET languages listing. */
-router.get('/', async function(req, res, next) {
+router.get('/', async function (req, res, next) {
     try {
         res.json(await languages.getMultiple(req.query.page));
     } catch (err) {
@@ -13,7 +13,19 @@ router.get('/', async function(req, res, next) {
     }
 });
 
-router.post('/', async function(req, res, next) {
+router.get('/list', async function (req, res, next) {
+    try {
+        let data = await languages.getMultiple(req.query.page);
+        console.log(data);
+        res.render('list', data)
+    }
+    catch (err) {
+        console.error('Error' + err.message);
+        next(err);
+    }
+});
+
+router.post('/', async function (req, res, next) {
 
     try {
         res.json(await languages.create(req.body));
@@ -24,7 +36,7 @@ router.post('/', async function(req, res, next) {
 
 });
 
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', async function (req, res, next) {
 
     try {
         res.json(await languages.update(req.params.id, req.body));
@@ -35,7 +47,7 @@ router.put('/:id', async function(req, res, next) {
 
 });
 
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id', async function (req, res, next) {
 
     try {
         res.json(await languages.remove(req.params.id));
